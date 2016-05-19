@@ -1,0 +1,29 @@
+
+<h1>{L_TITLE_SERIES_MANAGE}</h1>
+									
+<p>{L_DESCRIPTION_SERIES_MANAGE}</p>
+<table cellspacing="1">
+		<thead>
+		<tr>
+			<th>{L_LABEL_ID}</th>
+			<th>{L_LABEL_TITLE}</th>
+			<th>{L_LABEL_COMPLETE}</th>
+			<th>{L_LABEL_ACTION}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- BEGIN series -->
+			<!-- IF series.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+
+				<td style="text-align: center;">{series.ID}</td>
+				<td>{series.TITLE}</td>
+				<td style="text-align: center;">{series.COMPLETE}</td>
+				<td style="vertical-align: top; width: 100px; text-align: right; white-space: nowrap;">
+					<a href="{series.U_EDIT}"><img src="{T_THEME_PATH}/images/icon_edit.gif"/></a>
+					<a href="{series.U_DELETE}"><img src="{T_THEME_PATH}/images/icon_delete.gif"/></a>
+				</td>
+			</tr>
+		<!-- END series -->
+		</tbody>
+		</table>
+	

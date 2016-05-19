@@ -1,0 +1,162 @@
+ 
+parameters:
+    mjimeyg.documentmanager.dbtables:
+        documents: %core.table_prefix%documents
+        documents_authors_link: %core.table_prefix%documents_authors_link
+        series: %core.table_prefix%series
+        documents_series_link: %core.table_prefix%documents_series_link
+        chapters: %core.table_prefix%chapters
+        categories: %core.table_prefix%categories
+        
+services:
+    
+    mjimeyg.documentmanager.admin.controller:
+        class: mjimeyg\documentmanager\controller\admin_controller
+        arguments:
+            - '@config'
+            - '@request'
+            - '@template'
+            - '@user'
+            - '@service_container'
+            
+    mjimeyg.documentmanager.viewer:
+        class: mjimeyg\documentmanager\controller\documentviewer_controller
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@dbal.conn'
+            
+            
+    mjimeyg.documentmanager.main:
+        class: mjimeyg\documentmanager\controller\main_controller
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@dbal.conn'
+            
+    mjimeyg.documentmanager.create_document:
+        class: mjimeyg\documentmanager\controller\create_document_controller
+        arguments:
+            - '@service_container'
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@request'
+            - '@dbal.conn'
+            
+    mjimeyg.documentmanager.manage_categories:
+        class: mjimeyg\documentmanager\controller\manage_categories_controller
+        arguments:
+            - '@service_container'
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@request'
+            - '@dbal.conn'
+            
+    mjimeyg.documentmanager.ajax_manage_categories:
+        class: mjimeyg\documentmanager\controller\ajax_manage_categories_controller
+        arguments:
+            - '@service_container'
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@request'
+            - '@dbal.conn'
+            
+    mjimeyg.documentmanager.ajax_load_language:
+        class: mjimeyg\documentmanager\controller\ajax_load_language
+        arguments:
+            - '@service_container'
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@request'
+            - '@dbal.conn'
+
+    mjimeyg.documentmanager.ajax_create_document:
+        class: mjimeyg\documentmanager\controller\ajax_create_document_controller
+        arguments:
+            - '@service_container'
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@request'
+            - '@dbal.conn'
+    
+    mjimeyg.documentmanager.core.categories:
+        class: mjimeyg\documentmanager\core\categories
+        arguments:
+            - '@service_container'
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@request'
+            - '@dbal.conn'
+            
+    mjimeyg.documentmanager.core.authors:
+        class: mjimeyg\documentmanager\core\authors
+        arguments:
+            arguments:
+            - '@service_container'
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@request'
+            - '@dbal.conn'
+            
+    mjimeyg.documentmanager.core.chapter:
+        class: mjimeyg\documentmanager\core\chapter
+        arguments:
+            arguments:
+            - '@service_container'
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@request'
+            - '@dbal.conn'
+            
+    mjimeyg.documentmanager.core.document:
+        class: mjimeyg\documentmanager\core\document
+        arguments:
+            - '@service_container'
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@request'
+            - '@dbal.conn'
+            
+    mjimeyg.documentmanager.core.series:
+        class: mjimeyg\documentmanager\core\series
+        arguments:
+            - '@service_container'
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@request'
+            - '@dbal.conn'
+            
+    mjimeyg.documentmanager.core.manager:
+        class: mjimeyg\documentmanager\core\manager
+        arguments:
+            - '@service_container'
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@request'
+            - '@dbal.conn'

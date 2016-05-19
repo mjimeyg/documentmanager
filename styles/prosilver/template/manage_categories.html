@@ -1,0 +1,32 @@
+{% extends 'base_manager_template.html' %}
+{% from "macros.html" import category_manager as category_manager %}
+
+{% block body %}
+
+<script>
+    
+        var EXTENSION_PATH_ADD = "{{ EXTENSION_PATH_ADD }}";
+        var EXTENSION_PATH_DELETE = "{{ EXTENSION_PATH_DELETE }}";
+        var MODAL_TEXT_CAT_DELETE = "{{ MODAL_TEXT_CAT_DELETE }}";
+        var MODAL_TITLE_CAT_DELETE = "{{ MODAL_TITLE_CAT_DELETE }}";
+</script>
+<ul class="category_widget" id="category_widget">
+    <li id="category_{{ cat.category_id }}">
+            
+            
+        <span>--</span> 
+        <span class="category_management_tools">
+            <span class="category_management_tools_add">+ add category</span>
+            <span class="category_management_tools_separator">|</span>
+            <span class="category_management_tools_remove">- remove category</span>
+        </span>
+            
+            <ul class="root_category">
+                    {{ category_manager(categories) }}
+            </ul>
+            
+        </li>
+    
+        
+</ul>
+{% endblock %}

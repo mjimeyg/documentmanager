@@ -1,0 +1,52 @@
+
+<h1>{L_TITLE_AUTHORS_MANAGE}</h1>
+									
+<p>{L_DESCRIPTION_AUTHORS_MANAGE}</p>
+
+<form id="acp_lookups_manage" method="post" action="{U_ACTION}">
+	<input type="hidden" name="sub_action" value="add_author">
+	<fieldset>
+		<dl>
+			<dt><label for="username">{L_LABEL_USERNAME}:</label></dt>
+			<dd><input type="text" name="username" id="username" /></dd>
+		</dl>
+		<dl>
+			<dt><label for="email">{L_LABEL_EMAIL}:</label></dt>
+			<dd><input type="text" name="email" id="email" /></dd>
+		</dl>
+		<dl>
+			<dt><label for="website">{L_LABEL_WEBSITE}:</label></dt>
+			<dd><input type="text" name="website" id="website" /></dd>
+		</dl>
+	</fieldset>
+	<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+	</p>
+</form>
+
+
+<table cellspacing="1">
+		<thead>
+		<tr>
+			<th>{L_LABEL_ID}</th>
+			<th>{L_LABEL_USERNAME}</th>
+			<th>{L_LABEL_EMAIL}</th>
+			<th>{L_LABEL_WEBSITE}</th>
+			<th>{L_LABEL_ACTION}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- BEGIN authors -->
+			<!-- IF authors.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+
+				<td>{authors.ID}</td>
+				<td>{authors.USERNAME}</td>
+				<td>{authors.EMAIL}</td>
+				<td>{authors.WEBSITE}</td>
+				<td style="vertical-align: top; width: 100px; text-align: right; white-space: nowrap;">
+					<a href="{authors.U_DELETE}"><img src="{T_THEME_PATH}/images/icon_delete.gif"/></a>
+				</td>
+			</tr>
+		<!-- END authors -->
+		</tbody>
+		</table>

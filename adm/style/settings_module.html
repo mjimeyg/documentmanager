@@ -1,0 +1,36 @@
+<!-- INCLUDE overall_header.html -->
+
+<h1>{L_DOCUMENTMANAGER}</h1>
+<p>{L_DOCUMENTMANAGER_EXPLAIN}</p>
+
+<form id="documentmanager" method="post" action="{U_ACTION}">
+
+	<fieldset>
+		<legend>{L_ACP_DOCUMENTMANAGER_SETTINGS}</legend>
+
+		<dl>
+			<dt><label for="documentmanager_enable_user_submissions">{L_DOCUMENTMANAGER_ENABLE_USER_SUBMISSIONS}{L_COLON}</label><br /><span>{L_DOCUMENTMANAGER_ENABLE_USER_SUBMISSIONS_EXPLAIN}</span></dt>
+			<dd><label><input type="radio" class="radio" name="documentmanager_enable_user_submissions" value="1" id="documentmanager_enable_user_submissions"<!-- IF DOCUMENTMANAGER_ENABLE_USER_SUBMISSIONS --> checked="checked"<!-- ENDIF -->/> {L_YES}</label>
+				<label><input type="radio" class="radio" name="documentmanager_enable_user_submissions" value="0" <!-- IF not DOCUMENT_MANAGER_LEFT --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
+		</dl>
+
+		<dl>
+			<dt><label for="documentmanager_require_moderator_approval">{L_DOCUMENTMANAGER_REQUIRE_MODERATOR_APPROVAL}{L_COLON}</label><br /><span>{L_DOCUMENTMANAGER_REQUIRE_MODERATOR_APPROVAL_EXPLAIN}</span></dt>
+			<dd><label><input type="radio" class="radio" name="documentmanager_require_moderator_approval" value="1" id="documentmanager_require_moderator_approval"<!-- IF DOCUMENTMANAGER_REQUIRE_MODERATOR_APPROVAL --> checked="checked"<!-- ENDIF -->/> {L_YES}</label>
+				<label><input type="radio" class="radio" name="documentmanager_require_moderator_approval" value="0" <!-- IF not DOCUMENT_MANAGER_RIGHT --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
+		</dl>
+
+
+	</fieldset>
+
+	<fieldset>
+		<legend>{L_ACP_SUBMIT_CHANGES}</legend>
+		<p class="submit-buttons">
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+		</p>
+		{S_FORM_TOKEN}
+	</fieldset>
+</form>
+
+<!-- INCLUDE overall_footer.html -->

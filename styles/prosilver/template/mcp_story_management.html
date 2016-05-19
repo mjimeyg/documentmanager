@@ -1,0 +1,58 @@
+
+<!-- INCLUDE mcp_header.html -->
+				
+<!-- IF S_SERIES_CREATE -->
+<h1>{L_TITLE_SERIES_CREATE}</h1>
+									
+<p>{L_DESCRIPTION_SERIES_CREATE}</p>
+								
+<form id="acp_create_series" method="post" action="{U_ACTION}">
+	<input type="hidden" name="createseries">
+	<fieldset>
+		<dl>
+			<dt><label for="title">{L_LABEL_TITLE}:</label></dt>
+			<dd><input name="title" type="text" id="title" maxlength="255" /></dd>
+		</dl>
+											
+	</fieldset>
+	<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+	</p>
+</form>
+
+<!-- ELSEIF S_SERIES_MANAGE -->
+
+<!-- INCLUDE mcp_story_management_series_manage.html -->
+
+<!-- ELSEIF S_SERIES_EDIT -->
+
+<!-- INCLUDE mcp_story_management_series_edit.html -->
+
+<!-- ELSEIF S_STORY_CREATE -->
+
+<!-- INCLUDE mcp_story_management_story_create.html -->
+
+<!-- ELSEIF S_STORY_MANAGE -->
+
+<!-- INCLUDE mcp_story_management_story_manage.html -->
+
+<!-- ELSEIF S_STORY_EDIT -->
+
+<!-- INCLUDE mcp_story_management_story_edit.html -->
+
+<!-- ELSEIF S_LOOKUPS_MANAGE -->
+
+<!-- INCLUDE mcp_story_management_lookups.html -->
+
+<!-- ELSEIF S_AUTHORS_MANAGE -->
+
+<!-- INCLUDE mcp_story_management_authors.html -->
+
+<!-- ELSEIF S_CHAPTER_EDIT -->
+
+<!-- INCLUDE mcp_story_management_chapter_edit.html -->
+
+<!-- ENDIF -->
+
+<!-- INCLUDE mcp_footer.html -->

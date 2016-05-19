@@ -1,0 +1,56 @@
+
+<h1>{L_TITLE_SERIES_EDIT}</h1>
+									
+<p>{L_DESCRIPTION_SERIES_EDIT}</p>
+<table cellspacing="1">
+		<thead>
+		<tr>
+			<th>{L_LABEL_ID}</th>
+			<th>{L_LABEL_TITLE}</th>
+			<th>{L_LABEL_AUTHORS}</th>
+			<th>{L_LABEL_ACTION}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- BEGIN stories -->
+			<!-- IF stories.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+
+				<td style="text-align: center;">{stories.ID}</td>
+				<td>{stories.TITLE}</td>
+				<td style="text-align: center;">{stories.AUTHORS}</td>
+				<td style="vertical-align: top; width: 100px; text-align: right; white-space: nowrap;">
+					<!-- IF stories.S_FIRST_ROW && not stories.S_LAST_ROW -->
+						<img src="{T_THEME_PATH}/images/icon_up_disabled.gif"/>
+						<a href="{stories.U_MOVE_DOWN}"><img src="{T_THEME_PATH}/images/icon_down.gif"/></a>
+					<!-- ELSEIF not stories.S_FIRST_ROW && not stories.S_LAST_ROW -->
+						<a href="{stories.U_MOVE_UP}"><img src="{T_THEME_PATH}/images/icon_up.gif"/></a>
+						<a href="{stories.U_MOVE_DOWN}"><img src="{T_THEME_PATH}/images/icon_down.gif"/></a>
+					<!-- ELSEIF stories.S_LAST_ROW && not stories.S_FIRST_ROW -->
+						<a href="{stories.U_MOVE_UP}"><img src="{T_THEME_PATH}/images/icon_up.gif"/></a>
+						<img src="{T_THEME_PATH}/images/icon_down_disabled.gif"/>
+					<!-- ELSE -->
+						<img src="{T_THEME_PATH}/images/icon_up_disabled.gif"/>
+						<img src="{T_THEME_PATH}/images/icon_down_disabled.gif"/>
+					<!-- ENDIF -->
+					<a href="{stories.U_DELETE}"><img src="{T_THEME_PATH}/images/icon_delete.gif"/></a>
+				</td>
+			</tr>
+		<!-- END stories -->
+		</tbody>
+		</table>
+		
+<form id="acp_add_story_series" method="post" action="{U_ACTION}">
+	<input type="hidden" name="addstory">
+	<fieldset>
+		<dl>
+			<dt><label for="stories">{L_LABEL_STORIES}:</label></dt>
+			<dd><select name="stories" type="text" id="stories" maxlength="255" />
+				{S_STORIES_OPTIONS}
+				</select></dd>
+		</dl>
+											
+	</fieldset>
+	<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+	</p>
+</form>

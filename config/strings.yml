@@ -1,0 +1,8 @@
+parameters:
+    mjimeyg.documentmanager.tables.documents: %core.table_prefix%documents
+    mjimeyg.documentmanager.tables.documents_authors_link: %core.table_prefix%documents_authors_link
+    mjimeyg.documentmanager.tables.chapters: %core.table_prefix%chapters
+    mjimeyg.documentmanager.tables.series: %core.table_prefix%series
+    mjimeyg.documentmanager.tables.documents_series_link: %core.table_prefix%documents_series_link
+    mjimeyg.documentmanager.tables.categories: %core.table_prefix%categories
+    mjimeyg.documentmanager.tables.documents_categories_link: %core.table_prefix%documents_categories_link

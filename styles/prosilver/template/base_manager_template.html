@@ -1,0 +1,50 @@
+<script>
+    
+    var EXTENSION_PATH_LANG = "{{ EXTENSION_PATH_LANG }}";
+    var lang_array;
+    
+</script>
+{% include('overall_header.html') %}
+{% from "macros.html" import modal_dialog as dialog %}
+<!-- IF not $INCLUDED_CATEGORY_MANAGEMENT_JS -->
+	<!-- INCLUDEJS @mjimeyg_documentmanager/category_management.js -->
+	<!-- DEFINE $INCLUDED_CATEGORY_MANAGEMENT_JS = true -->
+<!-- ENDIF -->
+
+
+<!-- IF not $INCLUDED_TINYMCEJS -->
+	<!-- INCLUDEJS @mjimeyg_documentmanager/tinymce/tinymce.min.js -->
+	<!-- DEFINE $INCLUDED_TINYMCEJS = true -->
+<!-- ENDIF -->
+
+<div class="dm_side_bar">
+{% include('menu.html') %}
+</div>
+
+<div class="dm_body">
+    <div class="forabg dm_body">
+    <div class="inner">
+        <ul class="topiclist">
+            <li class="header">
+                <dl class="icon">
+                    <dd class="topics">Hello</dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="topiclist forums">
+
+            <li class="row">
+                <ul>
+                    {% block body %}{% endblock %}
+                </ul>
+            </li>
+
+
+        </ul>
+
+    </div>
+</div>
+</div>
+{{ dialog() }}
+<!-- INCLUDEJS @mjimeyg_documentmanager/tinymce/scripts.js -->
+{% include('overall_footer.html') %}

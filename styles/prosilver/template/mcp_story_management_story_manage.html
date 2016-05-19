@@ -1,0 +1,29 @@
+
+<h1>{L_TITLE_STORY_MANAGE}</h1>
+									
+<p>{L_DESCRIPTION_STORY_MANAGE}</p>
+<table cellspacing="1">
+		<thead>
+		<tr>
+			<th>{L_LABEL_ID}</th>
+			<th>{L_LABEL_TITLE}</th>
+			<th>{L_LABEL_AUTHORS}</th>
+			<th>{L_LABEL_ACTION}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- BEGIN stories -->
+			<!-- IF stories.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+
+				<td style="text-align: center;">{stories.ID}</td>
+				<td>{stories.TITLE}</td>
+				<td style="text-align: center;">{stories.AUTHORS}</td>
+				<td style="vertical-align: top; width: 100px; text-align: right; white-space: nowrap;">
+					<a href="{stories.U_ARCHIVE}">archive?</a>
+					<a href="{stories.U_EDIT}"><img src="{T_THEME_PATH}/images/icon_edit.gif"/></a>
+					<a href="{stories.U_DELETE}"><img src="{T_THEME_PATH}/images/icon_delete.gif"/></a>
+				</td>
+			</tr>
+		<!-- END stories -->
+		</tbody>
+		</table>

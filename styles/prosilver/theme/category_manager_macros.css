@@ -1,0 +1,55 @@
+.category_widget ul{
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.category_widget li{
+    
+}
+
+.category_selectable {
+    
+}
+
+.expand_button {
+    background-color: white;
+    border-color: black;
+    border-style: solid;
+    border-width: thin;
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    justify-content: center;
+    display: flex;
+    float: left;
+    
+    align-items: center;
+    padding-bottom: 2px;
+    margin-right: 10px;
+    
+}
+
+.sub_category {
+    padding-left: 10px;
+}
+
+.category_management_tools_add {
+    font-weight: bold;
+    color: green;
+}
+
+.category_management_tools_remove {
+    font-weight: bold;
+    color: red;
+}
+
+.category_management_tools_separator {
+    font-weight: bold;
+    color: gray;
+}
+
+.category_add_tick {
+    color: green;
+    font-weight: bold;
+}

@@ -1,0 +1,69 @@
+{% extends 'base_manager_template.html' %}
+{% from "macros.html" import author_select as author_select %}
+{% from "macros.html" import category_select as category_select %}
+{% block body %}
+<script>
+    var CREATE_DOCUMENT_AJAX_URL = "{{ CREATE_DOCUMENT_AJAX_URL }}";
+</script>
+<!-- INCLUDEJS @mjimeyg_documentmanager/create_document.js -->
+
+<div id="form_wrapper">
+    <p>{{ lang('DESCRIPTION_DOCUMENT_CREATE') }}</p>
+
+    <form id="create_document">
+            <input type="hidden" name="createdocument">
+            <fieldset>
+                    <dl>
+                            <dt><label for="title">{{ lang('LABEL_TITLE') }}:</label></dt>
+                            <dd><input name="title" type="text" id="title" maxlength="255" /></dd>
+                    </dl>
+                    <dl>
+                            <dt><label for="complete">{{ lang('LABEL_COMPLETE') }}:</label></dt>
+                            <dd><input name="complete" type="checkbox" id="complete" maxlength="255" /></dd>
+                    </dl>
+
+                    <dl>
+                            <dt><label for="authors">{{ lang('LABEL_AUTHORS') }}:</label></dt>
+                            <dd><select name="authors" id="authors" size="10" multiple>{{ author_select(authors) }}</select></dd>
+                    </dl>
+
+                    <dl>
+                            <dt><label for="categories">{{ lang('LABEL_CATEGORIES') }}:</label></dt>
+                            <dd>
+                                <ul class="category_widget" id="category_widget">
+        <li id="category_{{ cat.category_id }}">
+
+
+
+                <ul class="root_category">
+                        {{ category_select(categories, 0) }}
+                </ul>
+
+            </li>
+
+
+    </ul>
+                            </dd>
+                    </dl>
+
+
+                    <dl>
+                            <dt><label for="chapter_title">{{ lang('LABEL_CHAPTER_TITLE') }}:</label></dt>
+                            <dd><input name="chapter_title" type="text" id="chapter_title" maxlength="255" /></dd>
+                    </dl>
+
+                    <dl>
+                            <dt><label for="document_text">{{ lang('LABEL_TEXT') }}:</label></dt>
+                            <dd><textarea id="document_text" name="chapter_text" rows="50" cols="120"></textarea></dd>
+                    </dl>
+            </fieldset>
+            <p class="submit-buttons">
+                    <input class="button1" type="button" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+                    <input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />
+            </p>
+
+            {S_FORM_TOKEN}
+    </form>
+</div>
+
+{% endblock %}

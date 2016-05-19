@@ -1,0 +1,136 @@
+<!-- INCLUDE overall_header.html -->
+<!-- INCLUDE fanfic_overall_header.html -->
+<script type="text/javascript" src="../tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+		mode : "textareas",
+		theme : "simple",
+		force_br_newlines : false
+	});
+</script>
+        <div class="viewstoryDetails">
+            <hr />
+            <center><h2>{S_DOCUMENT_TITLE}</h2></center>
+            <center><h3>By <!-- BEGIN authors --><!-- IF authors.S_ROW_COUNT > 0 --> &amp; <!-- ENDIF -->{authors.USERNAME} <!-- END authors --></h3></center>
+            <p><b>Rating:</b> {S_STORY_RATINGS}</p>
+            <p><b>Genres: <!-- BEGIN genres -->{genres.NAME} <!-- END genres --></b></p>
+            <p><b>Keywords:</b> <!-- BEGIN keywords -->{keywords.NAME} <!-- END keywords --></p>
+
+            <p>This story has been read by {S_UNIQUE_READERS} people.<br />
+            This story has been read {S_HIT_COUNTER} times.</p>
+            <!-- IF S_STORY_SERIES -->
+                    <p>This story is number {S_STORY_NUMBER} in the series <a href="index.php?page=viewseries&id={S_SERIES_ID}">{S_SERIES_TITLE}</a></p>
+            <!-- ENDIF -->
+            <hr />
+        </div>
+
+        
+        <div class="bodynavblock" valign="middle">
+            <form name="nav1">
+                <input type="button" name="first" value="|<" onclick="window.location='index.php?page=viewstory&id={S_STORY_ID}'" <!-- IF S_CHAPTER_NUMBER == 0 --> disabled <!-- ENDIF -->>
+		<input type="button" name="prev" value="<" onclick="window.location='index.php?page=viewstory&id={S_STORY_ID}&chapter={S_CHAPTER_NUMBER_PREV}'" <!-- IF S_CHAPTER_NUMBER == 0 --> disabled <!-- ENDIF -->>
+		<select id="chapterSelect" onChange="var nav=document.getElementById('chapterSelect').options[document.getElementById('chapterSelect').selectedIndex].value;window.location='index.php?page=viewstory&id={S_STORY_ID}&chapter=' + nav;">
+		<!-- BEGIN chapters -->
+                
+                    <!-- IF S_CHAPTER_NUMBER == chapters.number -->
+                    <option value="{chapters.number}" selected>{chapters.title}</option>
+                    <!-- ELSE -->
+                    <option value="{chapters.number}">{chapters.title}</option>
+                    <!-- ENDIF -->
+                <!-- END chapters -->
+		</select>
+                <input type="button" name="next" value=">" onclick="window.location='index.php?page=viewstory&id={S_STORY_ID}&chapter={S_CHAPTER_NUMBER_NEXT}'" <!-- IF S_CHAPTER_NUMBER == S_CHAPTER_COUNT --> disabled <!-- ENDIF -->>
+		<input type="button" name="last" value=">|" onclick="window.location='index.php?page=viewstory&id={S_STORY_ID}&chapter={S_CHAPTER_COUNT}'" <!-- IF S_CHAPTER_NUMBER == S_CHAPTER_COUNT --> disabled <!-- ENDIF -->>
+            </form>
+        </div>
+
+        <h2>{S_CHAPTER_TITLE}</h2>
+        
+        {S_CHAPTER_TEXT}
+        
+        <!-- IF (.chapters > 1) || ((.chapters == 1) && (S_STORY_COMPLETE == false)) -->
+        <div class="bodynavblock" valign="middle">
+            <form name="nav1">
+                <input type="button" name="first" value="|<" onclick="window.location='index.php?page=viewstory&id={S_STORY_ID}'" <!-- IF S_CHAPTER_NUMBER == 1 --> disabled <!-- ENDIF -->>
+		<input type="button" name="prev" value="<" onclick="window.location='index.php?page=viewstory&id={S_STORY_ID}&chapter={S_CHAPTER_NUMBER_PREV}'" <!-- IF S_CHAPTER_NUMBER == 1 --> disabled <!-- ENDIF -->>
+		<select id="chapterSelect" onChange="var nav=document.getElementById('chapterSelect').options[document.getElementById('chapterSelect').selectedIndex].value;window.location='index.php?page=viewstory&id={S_STORY_ID}&chapter=' + nav;">
+		<!-- BEGIN chapters -->
+                
+                    <!-- IF S_CHAPTER_NUMBER == chapters.NUMBER -->
+                    <option value="{chapters.NUMBER}" selected>{chapters.TITLE}</option>
+                    <!-- ELSE -->
+                    <option value="{chapters.NUMBER}">{chapters.TITLE}</option>
+                    <!-- ENDIF -->
+                <!-- END chapters -->
+		</select>
+                <input type="button" name="next" value=">" onclick="window.location='index.php?page=viewstory&id={S_STORY_ID}&chapter={S_CHAPTER_NUMBER_NEXT}'" <!-- IF S_CHAPTER_NUMBER == S_CHAPTER_COUNT --> disabled <!-- ENDIF -->>
+		<input type="button" name="last" value=">|" onclick="window.location='index.php?page=viewstory&id={S_STORY_ID}&chapter={S_CHAPTER_COUNT}'" <!-- IF S_CHAPTER_NUMBER == S_CHAPTER_COUNT --> disabled <!-- ENDIF -->>
+            </form>
+        </div>
+        <!-- ENDIF -->
+        <hr />
+		<div class="commentSection">
+		<center><h2>Comments:</h2></center>
+        
+        <div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=157488955773&amp;xfbml=1"></script><fb:like href="{S_LIKE_URL}" send="true" width="450" show_faces="true" action="like" font="arial"></fb:like>
+		<div class="comments" id="comments">
+		<!-- BEGIN comments -->
+			<div class="comment">
+		
+				<div class="comment_name">{comments.NAME}</div>
+			
+				<div class="comment_text">
+            	{comments.TEXT}
+				</div>
+		
+			</div>
+		<!-- END comments -->
+		</div>
+        <!-- IF S_USER_LOGGED_IN -->
+        <div class="commentBox">
+        <form id="submitComment" name="submitComment" method="post" action="{U_SUBMIT_COMMENT_URL}">
+            <input id="mcpsPage" name="mcpsPage" type="hidden" value="{S_COMMENT_MCPS}">
+            <div>
+                Name: {S_COMMENTER_NAME} <span id="nameError" style="color:#FF0000; font-weight:bold"></span>
+            </div>
+            
+            <div>
+                
+                <img src="./images/emote/smile.gif" alt="Smile" title="Smile" onClick="tinyMCE.execCommand('mceInsertContent', false, ':)');">
+                <img src="./images/emote/sad.gif" alt="Sad" title="Sad" onClick="tinyMCE.execCommand('mceInsertContent', false, ':(');">
+                <img src="./images/emote/tongue.gif" alt="Tongue" title="Tongue" onClick="tinyMCE.execCommand('mceInsertContent', false, ':p');">
+                <img src="./images/emote/D.gif" alt="Very Happy" title="Very Happy" onClick="tinyMCE.execCommand('mceInsertContent', false, ':D');">
+                <img src="./images/emote/confused.gif" alt="Confused" title="Confused" onClick="tinyMCE.execCommand('mceInsertContent', false, ':s');">
+                <img src="./images/emote/tired.gif" alt="Tired" title="Tired" onClick="tinyMCE.execCommand('mceInsertContent', false, ':.');">
+                <img src="./images/emote/mad.gif" alt="Mad" title="Mad" onClick="tinyMCE.execCommand('mceInsertContent', false, ':@');">
+                <img src="./images/emote/annoyed.gif" alt="Annoyed" title="Annoyed" onClick="tinyMCE.execCommand('mceInsertContent', false, ':!@');">
+                <img src="./images/emote/Blink.gif" alt="Wink" title="Wink" onClick="tinyMCE.execCommand('mceInsertContent', false, ';)');">
+            </div>
+            
+            <div>
+                Comment:
+                <!-- Gets replaced with TinyMCE, remember HTML in a textarea should be encoded -->
+                <textarea id="elm1" name="elm1" rows="15" cols="80" style="width: 80%">{S_COMMENT_TEXT}
+                </textarea><span id="textError" style="color:#FF0000; font-weight:bold"></span>
+            </div>
+            
+            <span id="verificationError" style="color:#FF0000; font-weight:bold">{S_COMMENT_ERROR}</span></div>
+                    
+            <div>
+                <input type="submit" value="Add Comment"><span id="commentError" style="color:#FF0000; font-weight:bold"></span>
+            </div>
+        </form>
+    </div>
+    <!-- ELSE -->
+    <h2>You need to be logged in to the forum to leave a review!</h2>
+<form method="post" action="phpBB3/ucp.php?mode=login">
+<label for="username">Username: </label> <input type="text" name="username" id="username" size="40" /><br /><br />
+ <label for="password">Password: </label><input type="password" name="password" id="password" size="40" /><br /><br />
+ <label for="autologin">Remember Me?: </label><input type="checkbox" name="autologin" id="autologin"  /><br /><br />
+ <input type="submit" value="Log In" name="login" />
+ <input type="hidden" name="redirect" value=".{U_SUBMIT_COMMENT_URL}" />
+ </form>
+    <!-- ENDIF -->
+<!-- INCLUDE fanfic_overall_footer.html -->
+
+<!-- INCLUDE overall_footer.html -->

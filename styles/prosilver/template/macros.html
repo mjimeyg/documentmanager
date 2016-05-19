@@ -1,0 +1,53 @@
+<!--macros/menu-macros.html-->
+{% macro category_manager(cats, expand_all, selectable) %}
+<input type="hidden" id="init_expand" value="{{ expand_all|default(1) }}" />
+    <input type="hidden" id="init_selectable" value="{{ selectable|default(1) }}" />
+    {% for cat in cats %}
+    
+        <li id="category_{{ cat.category_id }}">
+            
+            {% if cat.category_has_children %}
+            <div class="expand_button" id="expand_category_{{ cat.category_id }}">-</div>
+            {% endif %}
+            <span id="{{ cat.category_id }}" class="category_management_tools_remove">-</span>{% if selectable == 1 %}<input class="category_checkbox" type="checkbox" name="categories" id="category_{{ cat.category_id }}" >{% endif %}<span id="category_title" {% if cat.category_selectable %}class="category_selectable"{% endif %}>{{ cat.category_title }}</span><span id="{{ cat.category_id }}" class="category_management_tools_add">+</span>
+            {% if cat.category_has_children %}
+            <ul class="sub_category">
+                    {{ _self.category_manager(cat.children, 0, 1) }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endmacro %}
+
+
+{% macro modal_dialog() %}
+
+<div id="modal_dialog" title="{{ MODAL_TITLE }}" class="modal_dialog">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin 0 7px 20px 0;"></span><span id="modal_text"></span>
+</div>
+{% endmacro %}
+
+{% macro author_select(authors) %}
+    {% for a in authors %}
+        <option value="{{ a.user_id }}">{{ a.username }}</option>
+    {% endfor %}
+{% endmacro %}
+
+{% macro category_select(cats, expand_all) %}
+<input type="hidden" id="init_expand" value="{{ expand_all|default(1) }}" />
+    {% for cat in cats %}
+    
+        <li id="category_{{ cat.category_id }}">
+            
+            {% if cat.category_has_children %}
+            <div class="expand_button" id="expand_category_{{ cat.category_id }}">-</div>
+            {% endif %}
+            {% if cat.category_selectable %}<input class="category_checkbox" type="checkbox" name="categories" id="category_{{ cat.category_id }}" >{% endif %}<span id="category_title" {% if cat.category_selectable %}class="category_selectable"{% endif %}>{{ cat.category_title }}</span>
+            {% if cat.category_has_children %}
+            <ul class="sub_category">
+                    {{ _self.category_select(cat.children, 0, 1) }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endmacro %}

@@ -1,0 +1,36 @@
+# This is also YML, so the comments above apply here
+mjimeyg_documentmanager_viewer:
+    path: /documentviewer/{id}/{chapter}
+    defaults: { _controller: mjimeyg.documentmanager.documentviewer:handle}
+    
+mjimeyg_documentmanager_main:
+    path: /main
+    defaults: { _controller: mjimeyg.documentmanager.main:handle}
+    
+mjimeyg_documentmanager_create_document:
+    path: /documentmanager/create_document
+    defaults: { _controller: mjimeyg.documentmanager.create_document:handle}
+    
+mjimeyg_documentmanager_manage_categories:
+    path: /documentmanager/manage_categories
+    defaults: { _controller: mjimeyg.documentmanager.manage_categories:handle}
+
+mjimeyg_documentmanager_ajax_manage_categories:
+    path: /documentmanager/ajax_manage_categories
+    defaults: { _controller: mjimeyg.documentmanager.ajax_manage_categories:handle}
+
+mjimeyg_documentmanager_ajax_manage_categories_add:
+    path: /documentmanager/ajax_manage_categories_add
+    defaults: { _controller: mjimeyg.documentmanager.ajax_manage_categories:add_category}
+
+mjimeyg_documentmanager_ajax_manage_categories_delete:
+    path: /documentmanager/ajax_manage_categories_delete
+    defaults: { _controller: mjimeyg.documentmanager.ajax_manage_categories:delete_category}
+    
+mjimeyg_documentmanager_ajax_create_document:
+    path: /documentmanager/ajax_create_document
+    defaults: { _controller: mjimeyg.documentmanager.ajax_create_document:handle}
+
+mjimeyg_documentmanager_ajax_load_language:
+    path: /documentmanager/ajax_load_language
+    defaults: { _controller: mjimeyg.documentmanager.ajax_load_language:handle}

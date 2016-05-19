@@ -1,0 +1,234 @@
+
+<script type="text/javascript" src="/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+	theme : "advanced",
+	mode : "textareas",
+	plugins : "paste",
+	theme_advanced_buttons3_add : "pastetext,pasteword,selectall",
+	paste_create_paragraphs : false,
+	paste_create_linebreaks : false,
+	paste_use_dialog : false,
+	paste_auto_cleanup_on_paste : true,
+	paste_convert_middot_lists : false,
+	paste_unindented_list_class : "unindentedList",
+	paste_convert_headers_to_strong : true,
+	paste_insert_word_content_callback : "convertWord"
+});
+
+function convertWord(type, content) {
+	switch (type) {
+		// Gets executed before the built in logic performes it's cleanups
+		case "before":
+			//content = content.toLowerCase(); // Some dummy logic
+			break;
+
+		// Gets executed after the built in logic performes it's cleanups
+		case "after":
+			//content = content.toLowerCase(); // Some dummy logic
+			break;
+	}
+
+	return content;
+}
+
+</script>
+<h1>{L_TITLE_STORY_EDIT}</h1>
+									
+<p>{L_DESCRIPTION_STORY_EDIT}</p>
+		
+<form id="acp_edit_story_title" method="post" action="{U_ACTION}">
+	<input type="hidden" name="edit_action" value="basics">
+	<fieldset>
+		<dl>
+			<dt><label for="title">{L_LABEL_TITLE}:</label></dt>
+			<dd><input name="title" type="text" id="title" maxlength="255" value="{S_STORY_TITLE}"/></dd>
+		</dl>
+		
+		<dl>
+			<dt><label for="complete">{L_LABEL_COMPLETE}:</label></dt>
+			<dd><input name="complete" type="checkbox" id="complete" maxlength="255" {S_STORY_COMPLETE}/></dd>
+		</dl>
+		
+		<dl>
+			<dt><label for="rating">{L_LABEL_RATING}:</label></dt>
+			<dd><select name="rating" id="rating" maxlength="255" >{S_FORM_RATING_OPTIONS}</select></dd>
+		</dl>
+		
+		<dl>
+			<dt><label for="section">{L_LABEL_SECTION}:</label></dt>
+			<dd><select name="section" id="section" maxlength="255" >{S_FORM_SECTION_OPTIONS}</select></dd>
+		</dl>
+		
+		<dl>
+			<dt><label for="url">{L_LABEL_URL}:</label></dt>
+			<dd><input name="url" type="text" id="url" maxlength="255" /></dd>
+		</dl>
+		
+	</fieldset>
+	<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+	</p>
+</form>
+
+<form id="acp_edit_story_complete" method="post" action="{U_ACTION}">
+	<input type="hidden" name="edit_action" value="add_author">
+	<fieldset>
+		<table cellspacing="1">
+		<thead>
+		<tr></tr>
+			<th>{L_LABEL_ID}</th>
+			<th>{L_LABEL_USERNAME}</th>
+			<th>{L_LABEL_ACTION}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- BEGIN authors -->
+			<!-- IF authors.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+
+				<td>{authors.ID}</td>
+				<td>{authors.USERNAME}</td>
+				<td style="vertical-align: top; width: 100px; text-align: right; white-space: nowrap;">
+					
+					<a href="{authors.U_DELETE}"><img src="{T_THEME_PATH}/images/icon_delete.gif"/></a>
+				</td>
+			</tr>
+		<!-- END authors -->
+		</tbody>
+		</table>
+		<dl>
+			<dt><label for="authors">{L_LABEL_AUTHORS}:</label></dt>
+			<dd><select name="authors" id="authors" size="10">{S_FORM_AUTHORS_OPTIONS}</select></dd>
+		</dl>
+		</fieldset>
+	<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+	</p>
+</form>
+
+<form id="acp_edit_story_complete" method="post" action="{U_ACTION}">
+	<input type="hidden" name="edit_action" value="add_genre">
+	<fieldset>
+<table cellspacing="1">
+		<thead>
+		<tr></tr>
+			<th>{L_LABEL_GENRES}</th>
+			<th>{L_LABEL_ACTION}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- BEGIN genres -->
+			<!-- IF genres.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+
+				<td>{genres.DATA}</td>
+				<td style="vertical-align: top; width: 100px; text-align: right; white-space: nowrap;">
+					
+					<a href="{genres.U_DELETE}"><img src="{T_THEME_PATH}/images/icon_delete.gif"/></a>
+				</td>
+			</tr>
+		<!-- END genres -->
+		</tbody>
+		</table>
+		<dl>
+			<dt><label for="genres">{L_LABEL_GENRES}:</label></dt>
+			<dd><select name="genres" id="genres" multiple>{S_FORM_GENRES_OPTIONS}</select></dd>
+		</dl>
+		</fieldset>
+	<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+	</p>
+</form>
+
+
+<form id="acp_edit_story_complete" method="post" action="{U_ACTION}">
+	<input type="hidden" name="edit_action" value="add_keyword">
+	<fieldset>
+		<table cellspacing="1">
+		<thead>
+		<tr></tr>
+			<th>{L_LABEL_KEYWORDS}</th>
+			<th>{L_LABEL_ACTION}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- BEGIN keywords -->
+			<!-- IF keywords.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+
+				<td>{keywords.DATA}</td>
+				<td style="vertical-align: top; width: 100px; text-align: right; white-space: nowrap;">
+					
+					<a href="{keywords.U_DELETE}"><img src="{T_THEME_PATH}/images/icon_delete.gif"/></a>
+				</td>
+			</tr>
+		<!-- END keywords -->
+		</tbody>
+		</table>
+		<dl>
+			<dt><label for="keywords">{L_LABEL_KEYWORDS}:</label></dt>
+			<dd><select name="keywords" id="keywords" size="10" multiple>{S_FORM_KEYWORDS_OPTIONS}</select></dd>
+		</dl>
+		</fieldset>
+		<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+	</p>
+
+</form>
+
+<form id="acp_edit_story_complete" method="post" action="{U_ACTION}">
+	<input type="hidden" name="edit_action" value="add_chapter">
+	<fieldset>
+		<table cellspacing="1">
+		<thead>
+		<tr></tr>
+			<th>{L_LABEL_NUMBER}</th>
+			<th>{L_LABEL_TITLE}</th>
+			<th>{L_LABEL_MCPS}</th>
+			<th>{L_LABEL_ACTION}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- BEGIN chapters -->
+			<!-- IF chapters.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+				<td>{chapters.NUMBER}</td>
+				<td>{chapters.TITLE}</td>
+				<td>{chapters.MCPS}</td>
+				<td style="vertical-align: top; width: 100px; text-align: right; white-space: nowrap;">
+					<!-- IF chapters.S_FIRST_ROW && not chapters.S_LAST_ROW -->
+						<img src="{T_THEME_PATH}/images/icon_up_disabled.gif"/>
+						<a href="{chapters.U_MOVE_DOWN}"><img src="{T_THEME_PATH}/images/icon_down.gif"/></a>
+					<!-- ELSEIF not chapters.S_FIRST_ROW && not chapters.S_LAST_ROW -->
+						<a href="{chapters.U_MOVE_UP}"><img src="{T_THEME_PATH}/images/icon_up.gif"/></a>
+						<a href="{chapters.U_MOVE_DOWN}"><img src="{T_THEME_PATH}/images/icon_down.gif"/></a>
+					<!-- ELSEIF chapters.S_LAST_ROW && not chapters.S_FIRST_ROW -->
+						<a href="{chapters.U_MOVE_UP}"><img src="{T_THEME_PATH}/images/icon_up.gif"/></a>
+						<img src="{T_THEME_PATH}/images/icon_down_disabled.gif"/>
+					<!-- ELSE -->
+						<img src="{T_THEME_PATH}/images/icon_up_disabled.gif"/>
+						<img src="{T_THEME_PATH}/images/icon_down_disabled.gif"/>
+					<!-- ENDIF -->
+					<a href="{chapters.U_EDIT}"><img src="{T_THEME_PATH}/images/icon_edit.gif"/></a>
+					<a href="{chapters.U_DELETE}"><img src="{T_THEME_PATH}/images/icon_delete.gif"/></a>
+				</td>
+			</tr>
+		<!-- END chapters -->
+		</tbody>
+		</table>
+		
+		<dl>
+			<dt><label for="title">{L_LABEL_TITLE}:</label></dt>
+			<dd><input type="text" name="title" id="title" /></dd>
+		</dl>
+		<dl>
+			<dt><label for="mcps">{L_LABEL_MCPS}:</label></dt>
+			<dd><input type="text" name="mcps" id="mcps" /></dd>
+		</dl>
+		<dl>
+			<dt><label for="chapter_text">{L_LABEL_TEXT}:</label></dt>
+			<dd><textarea id="chapter_text" name="chapter_text" rows="50" cols="120"></textarea></dd>
+		</dl>
+		</fieldset>
+		<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+	</p>
+
+</form>

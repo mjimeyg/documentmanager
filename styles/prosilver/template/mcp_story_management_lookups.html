@@ -1,0 +1,54 @@
+
+<h1>{L_TITLE_LOOKUPS_MANAGE}</h1>
+									
+<p>{L_DESCRIPTION_LOOKUPS_MANAGE}</p>
+
+<form id="acp_lookups_manage" method="post" action="{U_ACTION}">
+	<input type="hidden" name="sub_action" value="change_lookups">
+	<fieldset>
+		<dl>
+			<dt><label for="lookups">{L_LABEL_LOOKUPS}:</label></dt>
+			<dd><select name="lookups" id="lookups">{S_FORM_OPTIONS_LOOKUPS}</select></dd>
+		</dl>
+											
+	</fieldset>
+	<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+	</p>
+</form>
+
+<form id="acp_lookups_add" method="post" action="{U_ACTION}">
+	<input type="hidden" name="sub_action" value="add_lookups">
+	<input type="hidden" name="category" value="{S_CATEGORY}">
+	<fieldset>
+		<dl>
+			<dt><label for="values">{L_LABEL_DATA}:</label></dt>
+			<dd><input type="text" name="values" id="values" /></dd>
+		</dl>
+											
+	</fieldset>
+	<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+	</p>
+</form>
+
+
+<table cellspacing="1">
+		<thead>
+		<tr>
+			<th>{L_LABEL_DATA}</th>
+			<th>{L_LABEL_ACTION}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- BEGIN lookups -->
+			<!-- IF lookups.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+
+				<td>{lookups.DATA}</td>
+				<td style="vertical-align: top; width: 100px; text-align: right; white-space: nowrap;">
+					<a href="{lookups.U_DELETE}"><img src="{T_THEME_PATH}/images/icon_delete.gif"/></a>
+				</td>
+			</tr>
+		<!-- END lookups -->
+		</tbody>
+		</table>

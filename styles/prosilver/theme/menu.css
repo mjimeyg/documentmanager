@@ -1,0 +1,28 @@
+.dm_side_bar {
+    min-width: 100px;
+    max-width: 200px;
+    min-height: 100%;
+    height: 100%;
+    float: left;
+    margin-right: 5px;
+}
+.dm_side_menu{
+    min-width: 100px;
+    max-width: 200px;
+}
+
+.dm_side_menu li {
+    padding: 5px;
+}
+
+.dm_body {
+    
+    overflow: hidden;
+}
+
+.dm_body .row {
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}

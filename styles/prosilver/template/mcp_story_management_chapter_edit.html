@@ -1,0 +1,86 @@
+<script type="text/javascript" src="/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+	theme : "advanced",
+	mode : "textareas",
+	plugins : "paste",
+	theme_advanced_buttons3_add : "pastetext,pasteword,selectall",
+	paste_create_paragraphs : false,
+	paste_create_linebreaks : false,
+	paste_use_dialog : false,
+	paste_auto_cleanup_on_paste : true,
+	paste_convert_middot_lists : false,
+	paste_unindented_list_class : "unindentedList",
+	paste_convert_headers_to_strong : true,
+	paste_insert_word_content_callback : "convertWord"
+});
+
+function convertWord(type, content) {
+	switch (type) {
+		// Gets executed before the built in logic performes it's cleanups
+		case "before":
+			//content = content.toLowerCase(); // Some dummy logic
+			break;
+
+		// Gets executed after the built in logic performes it's cleanups
+		case "after":
+			//content = content.toLowerCase(); // Some dummy logic
+			break;
+	}
+
+	return content;
+}
+
+</script>
+<h1>{L_TITLE_STORY_EDIT}</h1>
+									
+<p>{L_DESCRIPTION_STORY_EDIT}</p>
+		
+<form id="acp_edit_story_title" method="post" action="{U_ACTION}">
+	<input type="hidden" name="edit_action" value="edit_chapter">
+	<input type="hidden" name="chapter_id" value="{S_CHAPTER_ID}">
+	<input type="hidden" name="story_id" value="{S_STORY_ID}">
+	<fieldset>
+
+		<dl>
+			<dt><label for="title">{L_LABEL_TITLE}:</label></dt>
+			<dd><input type="text" name="title" id="title" value="{S_CHAPTER_TITLE}"/></dd>
+		</dl>
+		<dl>
+			<dt><label for="mcps">{L_LABEL_MCPS}:</label></dt>
+			<dd><input type="text" name="mcps" id="mcps" value="{S_CHAPTER_MCPS}"/></dd>
+		</dl>
+		<dl>
+			<dt><label for="chapter_text">{L_LABEL_TEXT}:</label></dt>
+			<dd><textarea id="chapter_text" name="chapter_text" rows="50" cols="120">{S_CHAPTER_TEXT}</textarea></dd>
+		</dl>
+		</fieldset>
+		<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+	</p>
+
+</form>
+
+<table cellspacing="1">
+		<thead>
+		<tr>
+			<th>{L_LABEL_ID}</th>
+			<th>{L_LABEL_NAME}</th>
+			<th>{L_LABEL_COMMENT}</th>
+			<th>{L_LABEL_ACTION}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!-- BEGIN comment -->
+			<!-- IF comment.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+
+				<td style="text-align: center;">{comment.ID}</td>
+				<td>{comment.NAME}</td>
+				<td style="text-align: center;">{comment.COMMENT}</td>
+				<td style="vertical-align: top; width: 100px; text-align: right; white-space: nowrap;">
+					<a href="{comment.U_DELETE}"><img src="{T_THEME_PATH}/images/icon_delete.gif"/></a>
+				</td>
+			</tr>
+		<!-- END comment -->
+		</tbody>
+		</table>
