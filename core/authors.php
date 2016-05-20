@@ -48,7 +48,6 @@ class Authors {
     
     private $_last_modified_author = null;
 
-
     public function __construct(ContainerInterface $container,
             \phpbb\config\config $config, 
             \phpbb\controller\helper $helper, 
@@ -110,7 +109,7 @@ class Authors {
     
     private function _load_set() {
         $category_parent = 0;
-        $sql = "SELECT * FROM " . $this->tables['documents_authors_link'] . " AS a INNER JOIN " . $this->container->getParameter("tables.users") . " AS b ON a.user_id = b.user_id";
+        $sql = "SELECT * FROM " . $this->tables['documents_authors_link'] . " AS a INNER JOIN " . $this->phpbb_container->getParameter("tables.users") . " AS b ON a.user_id = b.user_id";
         $result = $this->db->sql_query($sql);
         
         //print_r($result);
@@ -152,33 +151,6 @@ class Authors {
         return $this->values;
     }
     
-    public function add_category($category_title, $category_parent = 0, $category_selectable = 0, $category_has_children = 0) {
-        $iterator = new \RecursiveArrayIterator($this->values);
-        
-        foreach(new \RecursiveArrayIterator($iterator) as $k => $v) {
-            if(isset($v['category_id'])) {
-                if($v['category_id'] == $category_parent) {
-                    $v['children'][] = ['category_title' => $category_title,
-                        'category_parent' => $category_parent, 
-                        'category_selectable' => $category_selectable,
-                        'category_has_children' => $category_has_children];
-                    $v['category_has_children'] = 1;
-                }
-            }
-        }
-        
-        
-        
-        return ['category_title' => $category_title,
-                        'category_parent' => $category_parent, 
-                        'category_selectable' => $category_selectable,
-                        'category_has_children' => $category_has_children];
-    }
-    
-    public function delete_category($category_id) {
-        return $this->_delete_category($category_id, $this->values, 'children');
-        
-    }
     
     public function write_to_db($category) {
         return $this->_write_to_db($category);
@@ -189,43 +161,6 @@ class Authors {
     }
 
 
-    public function get_category($category_id) {
-        
-        foreach($this->values as $k => $v) {
-            
-            if($k == $category_id) {
-                return $v;
-            } elseif($v['category_has_children']) {
-                return $this->_get_category($category_id, $v);
-            }
-        }
-    }
-    
-    private function _get_category($category_id, &$categories) {
-        $children = $categories['children'];
-        foreach($children as $k => $v) {
-            
-            if($k == $category_id) {
-                
-                return $v;
-            } elseif($v['category_has_children']) {
-                return $this->_get_category($category_id, $v);
-            }
-        }
-    }
-    
-    private function _set_has_children($category_id, $has_children) {
-        $sql = "UPDATE " . $this->tables['categories'] . " SET category_has_children = $has_children WHERE category_id = $category_id";
-        //echo $sql . "<br />";
-        $result = $this->db->sql_query($sql);
-        
-        if(!$result) {
-            return 0;
-        } else {
-            
-            return 1;
-        }
-    }
     
     private function _write_to_db($category) {
         $sql = "INSERT INTO " . $this->tables['categories'] . "(category_title, category_parent, category_selectable, category_has_children) " .
@@ -258,28 +193,6 @@ class Authors {
             
             return false;
         }
-    }
-    
-    private function _delete_category($key, &$array, $child_key = 'children') {
-        if(isset($array[$key])) {
-            $this->_set_last_modified_category($array[$key]);
-            unset($array[$key]);
-            return $this->_get_last_modified_category();
-        }
-        
-        foreach($array as &$item) {
-            if(isset($item[$child_key])) {
-                return $this->_delete_category($key, $item[$child_key], $child_key);
-            }
-        }
-    }
-    
-    private function _set_last_modified_category($category) {
-        $this->_last_modified_category = $category;
-    }
-    
-    private function _get_last_modified_category() {
-        return $this->_last_modified_category;
     }
     
     public function toString() {
