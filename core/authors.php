@@ -44,7 +44,7 @@ class Authors {
     
     protected $phpbb_container;
     
-    private $values;
+    private $_values;
     
     private $_last_modified_author = null;
 
@@ -85,7 +85,7 @@ class Authors {
             if($iterator->hasChildren()) {
                 $this->_db_to_array($iterator->getChildren());
             } else {
-                $this->values[$iterator->key()] = $iterator->current();
+                $this->_values[$iterator->key()] = $iterator->current();
             }
             $iterator->next();
         }
@@ -101,59 +101,64 @@ class Authors {
             if($iterator->hasChildren()) {
                 $this->_db_to_array($iterator->getChildren());
             } else {
-                $this->values[$iterator->key()] = $iterator->current();
+                $this->_values[$iterator->key()] = $iterator->current();
             }
             $iterator->next();
         }
     }*/
     
     private function _load_set() {
-        $category_parent = 0;
         $sql = "SELECT * FROM " . $this->tables['documents_authors_link'] . " AS a INNER JOIN " . $this->phpbb_container->getParameter("tables.users") . " AS b ON a.user_id = b.user_id";
         $result = $this->db->sql_query($sql);
         
         //print_r($result);
         while($row = $this->db->sql_fetchrow($result)) {
-            $this->values[$row['b.user_id']] = $row;
+            $this->_values[$row['user_id']] = $row;
             
         }
         
+        return $this->_values;
     }
     
-    public function get_last_modified_category() {
-        return $this->_get_last_modified_category();
-    }
-
-
-    private function _process_children($parent_id) {
-        $return_array = array();
-        //echo "&tab;Processing: " . $parent_id . "<br />";
-        $sql = "SELECT * FROM " . $this->tables['categories'] . " WHERE category_parent = $parent_id";
-        //echo $sql . "<br />";
+    public function add_author($data) {
+        if(!isset($data['user_id'])) {
+            return false;
+        }
+        
+        if(!isset($data['document_id'])) {
+            return false;
+        }
+        
+        $sql = "SELECT COUNT(*) AS rows FROM {$this->tables['documents_authors_link']} WHERE user_id = {$data['user_id']} AND document_id = {$data['document_id']}";
+        
         $result = $this->db->sql_query($sql);
         
-        while($row = $this->db->sql_fetchrow($result)) {
-            //echo $row['category_id'] . ' - ' . $row['category_title'] . '<br />';
-            $return_array[$row['category_id']] = $row;
-            if($row['category_has_children'] == 1) {
-                $return_array[$row['category_id']]['children'] = $this->_process_children($row['category_id']);
-            }
-                
+        $row = $this->db->sql_fetchrow($result);
+        
+        if($row['row']) {
+            return false;
         }
-        return $return_array;
+        
+        $this->_values[] = $data;
     }
     
+    public function update_author($data) {
+        
+    }
+
+
+    
     public function load_set() {
-        $this->_load_set();
+        return $this->_load_set();
     }
     
     public function toArray() {
-        return $this->values;
+        return $this->_values;
     }
     
     
-    public function write_to_db($category) {
-        return $this->_write_to_db($category);
+    public function save() {
+        return $this->_write_to_db();
     }
     
     public function delete_from_db($category_id) {
@@ -162,18 +167,15 @@ class Authors {
 
 
     
-    private function _write_to_db($category) {
-        $sql = "INSERT INTO " . $this->tables['categories'] . "(category_title, category_parent, category_selectable, category_has_children) " .
-                                    "VALUES('{$category['category_title']}', {$category['category_parent']}, {$category['category_selectable']}, {$category['category_has_children']})";
+    private function _write_to_db() {
         //echo $sql . "<br />";
-        $result = $this->db->sql_query($sql);
+        $result = $this->db->sql_multi_insert($this->tables['categories'], $this->_values);
         
         if(!$result) {
-            return 0;
+            return false;
         } else {
-            $category['category_id'] = $this->db->sql_nextid();
-            $this->_set_has_children($category['category_parent'], 1);
-            return $category;
+            
+            return true;
         }
     }
     
