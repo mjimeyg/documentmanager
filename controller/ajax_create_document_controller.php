@@ -56,10 +56,29 @@ class ajax_create_document_controller extends base_controller
     */
     public function handle() {
         $error = array();
-        $this->_manager->clear('document');
+        $this->_manager->clear();
         
-        $title = $this->request->variable("title", "");
+        $document_values = array(
+            'document_title'    => $this->request->variable("title", ""),
+            'document_complete' => $this->request->variable("complete", 0),
+        );
+        $authors_values = explode(",", $this->request->variable("authors", ""));
+        $categories_values = explode(",", $this->request->variable("categories", ""));
+        $chapter_values = array(
+            'chapter_title' => $this->request->variable("chapter_title", ""),
+            'chapter_text'  => $this->request->variable("text", ""),
+        );
         
+        if($this->_manager->add_document($document_values)) {
+            $return = array_merge_recursive($document_values, array('authors' => $authors_values, 'categories' => $categories_values), $chapter_values);
+        } else {
+            $return = error_get_last();
+        }
+        
+        
+        $return = array_merge_recursive($document_values, array('authors' => $authors_values, 'categories' => $categories_values), $chapter_values);
+        
+        $this->template->assign_var('response', json_encode($return));
         
         return $this->helper->render('ajax_json_response.html');
     }
