@@ -69,7 +69,7 @@ class Document {
         $this->request = $request;
         $this->db = $db;
         $this->phpbb_container = $container;
-        $this->tables = $this->container->getParameter('mjimeyg.documentmanager.dbtables');
+        $this->tables = $this->phpbb_container->getParameter('mjimeyg.documentmanager.dbtables');
         
         
         $user->add_lang_ext('mjimeyg/documentmanager', 'main');
@@ -151,6 +151,7 @@ class Document {
     }
     
     private function _write_to_db() {
+        
         $this->_document_updated = time();
         
         if(isset($this->_document_id)) {
@@ -161,6 +162,7 @@ class Document {
             . "document_updated = {$this->_document_updated} "
             . "WHERE document_id = {$this->_document_id}";
         } else {
+            $this->_document_uploaded = $this->_document_updated;
             $sql = "INSERT INTO {$this->tables['documents']}(document_title, document_complete, document_uploaded, document_updated) "
             . "VALUES('{$this->_document_title}', "
             . "{$this->_document_complete}, "
@@ -169,10 +171,13 @@ class Document {
         }
         
         $result = $this->db->sql_query($sql);
-        
         if($result == 1) {
+            if(!isset($this->_document_id)) {
+                $this->_document_id = $this->db->sql_nextid();
+            }
             return true;
         } else {
+            
             return false;
         }
     }
@@ -180,13 +185,44 @@ class Document {
     private function _clear_data() {
         
         $this->_document_complete = 0;
-        $this->_document_id = 0;
+        $this->_document_id = null;
         $this->_document_title = "";
         $this->_document_updated = 0;
         $this->_document_uploaded = 0;
     }
+    
+    private function _validate_data($param) {
+        $error = array();
+        if(isset($param['title'])) {
+            if(gettype($param['title']) != "string") {
+                $error[] = $this->user->lang['ERROR_FORM_INVALID_TITLE'];
+            }
+        }
+        
+        /*if(isset($param['complete'])) {
+            if(gettype($param['complete']) != "integer") {
+                $error[] = $this->user->lang['INVALID_TITILE'];
+            }
+        }*/
+    }
 
     private function _load_categories_from_db($document_id) {
         
+    }
+    
+    public function toArray() {
+        $values = array(
+            'document_id'           => $this->_document_id,
+            'document_title'        => $this->_document_title,
+            'document_complete'     => $this->_document_complete,
+            'document_uploaded'     => $this->_document_uploaded,
+            'document_updated'      => $this->_document_updated,
+        );
+        
+        return $values;
+    }
+    
+    public function toJSON() {
+        return json_encode($this->toArray());
     }
 }
