@@ -158,3 +158,12 @@ services:
             - '@user'
             - '@request'
             - '@dbal.conn'
+            
+
+    mjimeyg.documentmanager.listener:
+        class: mjimeyg\documentmanager\event\listener
+        arguments:
+            - '@controller.helper'
+            - '@template'
+        tags:
+            - { name: event.listener }
