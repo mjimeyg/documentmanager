@@ -19,8 +19,27 @@ use \mjimeyg\documentmanager\core;
 *
 * This describes all of the methods we'll use for the admin front-end of this extension
 */
-class create_document_controller extends base_controller
+class create_document_controller
 {
+    protected $config;
+
+    /* @var helper */
+    protected $helper;
+
+    /* @var template */
+    protected $template;
+
+    /* @var user */
+    protected $user;
+    
+    /* @var db */
+    protected $db;
+    
+    /* @var \mjimeyg.documentmanager.dbtables */
+    protected $tables;
+    
+    protected $request;
+    
     protected $authors;
     protected $categories;
     protected $document;
@@ -48,15 +67,23 @@ class create_document_controller extends base_controller
             \phpbb\request\request $request, 
             \phpbb\db\driver\driver_interface $db)
     {
-        parent::__construct($container, $config, $helper, $template, $user, $request, $db);
+        $this->config = $config;
+        $this->helper = $helper;
+        $this->template = $template;
+        $this->user = $user;
+        $this->request = $request;
+        $this->db = $db;
+        $this->phpbb_container = $container;
         
-        //$this->authors = $this->phpbb_container->get('mjimeyg.documentmanager.core.authors');
+        $this->authors = $this->phpbb_container->get('mjimeyg.documentmanager.core.authors');
         
-        //$this->authors->load_set();
+        $this->authors->load_set();
         
         $this->categories = $this->phpbb_container->get('mjimeyg.documentmanager.core.categories');
         
-        //$this->document = $this->phpbb_container->get('mjimeyg.documentmanager.core.document');
+        $this->categories->load_set();
+        
+        $this->document = $this->phpbb_container->get('mjimeyg.documentmanager.core.document');
         
         $this->u_action = $this->helper->route('mjimeyg_documentmanager_create_document');
         
@@ -97,14 +124,20 @@ class create_document_controller extends base_controller
             
         }
         
-        $sql = "SELECT user_id, username FROM " . $this->phpbb_container->getParameter("tables.users") . " WHERE group_id <> 6 AND group_id != 1 ORDER BY username ASC";
-        $result = $this->db->sql_query($sql);
-        $users = $this->db->sql_fetchrowset($result);
+        $sql = "SELECT * FROM {$this->phpbb_container->getParameter("tables.users")} WHERE group_id = 2 ORDER BY username";
         
-        $this->categories->load_set();
+        $result = $this->db->sql_query($sql);
+        
+        $user_list = array();
+        
+        while($row = $this->db->sql_fetchrow($result)) {
+            $user_list[] = $row;
+        }
+        
+        
         
         $this->template->assign_var('categories', $this->categories->toArray());
-        $this->template->assign_var('authors', $users);
+        $this->template->assign_var('authors', $user_list);
         return $this->helper->render('create_document.html');
     }
 }
