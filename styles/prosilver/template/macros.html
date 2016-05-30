@@ -42,7 +42,7 @@
             {% if cat.category_has_children %}
             <div class="expand_button" id="expand_category_{{ cat.category_id }}">-</div>
             {% endif %}
-            {% if cat.category_selectable %}<input class="category_checkbox" type="checkbox" name="categories" id="category_{{ cat.category_id }}" >{% endif %}<span id="category_title" {% if cat.category_selectable %}class="category_selectable"{% endif %}>{{ cat.category_title }}</span>
+            {% if cat.category_selectable %}<input class="category_checkbox" type="checkbox" name="categories[]" id="category_{{ cat.category_id }}" >{% endif %}<span id="category_title" {% if cat.category_selectable %}class="category_selectable"{% endif %}>{{ cat.category_title }}</span>
             {% if cat.category_has_children %}
             <ul class="sub_category">
                     {{ _self.category_select(cat.children, 0, 1) }}
