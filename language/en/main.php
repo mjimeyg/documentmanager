@@ -110,9 +110,15 @@ $lang = array_merge($lang, array(
     'ERROR_FORM_EMPTY_CHAPTER_TITLE'                                        => 'Chapter title cannot be empty.',
     'ERROR_FORM_EMPTY_TEXT'                                                 => 'Document text cannot be empty.',
     
+    'ERROR_FORM_INVALID_TITLE'                                                => 'Document title is not a string.',
+    'ERROR_FORM_INVALID_AUTHORS'                                              => 'Authors must be an integer or an array of integers.',
+    'ERROR_FORM_INVALID_CATEGORIES'                                           => 'Categries must be an integer or an array of integers.',
+    'ERROR_FORM_INVALID_CHAPTER_TITLE'                                        => 'Chapter title is not a string.',
+    'ERROR_FORM_INVALID_TEXT'                                                 => 'Document text is not a string.',
+    
     // Dialog Titles
     'DIALOG_TITLE_ERROR_INVALID_FORM_SUBMISSION'                            => 'Invalid Form!',
     
     
-    
+    'RECENT_DOCUMENTS'                                      => 'Recent Documens',
 ));
