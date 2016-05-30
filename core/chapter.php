@@ -53,9 +53,6 @@ class Chapter {
     private $_chapter_updated;
 
 
-    protected $config;
-    protected $db;
-    protected $tables;
     
     
     //private $_last_modified_category = null;
@@ -76,7 +73,7 @@ class Chapter {
         $this->request = $request;
         $this->db = $db;
         $this->phpbb_container = $container;
-        $this->tables = $this->container->getParameter('mjimeyg.documentmanager.dbtables');
+        $this->tables = $this->phpbb_container->getParameter('mjimeyg.documentmanager.dbtables');
         
         $user->add_lang_ext('mjimeyg/documentmanager', 'main');
         
