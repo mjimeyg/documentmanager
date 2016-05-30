@@ -30,12 +30,6 @@ class Series {
     
     protected $request;
     
-    protected $_categories;
-    protected $_authors;
-    protected $_chapter;
-    protected $_document;
-    protected $_manager;
-
 
 
 
@@ -61,16 +55,6 @@ class Series {
         $this->request = $request;
         $this->db = $db;
         $this->phpbb_container = $container;
-        
-        $this->_categories = $this->phpbb_container->get('mjimeyg.documentmanager.core.categories');
-        $this->_categories->load_set();
-        
-        $this->_authors = $this->phpbb_container->get('mjimeyg.documentmanager.core.authors');
-        
-        $this->_chapters = $this->phpbb_container->get('mjimeyg.documentmanager.core.chapter');
-        
-        $this->_document = $this->phpbb_container->get('mjimeyg.documentmanager.core.document');
-        $this->_manager = $this->phpbb_container->get('mjimeyg.documentmanager.core.manager');
         
         
         $user->add_lang_ext('mjimeyg/documentmanager', 'main');
